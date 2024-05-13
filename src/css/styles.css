@@ -220,6 +220,10 @@ iframe{
 
 
 /*ENLACES*/
+ul {
+  padding: 0;
+}
+
 .contenedor-enlaces h1 {
   font-size: 60px;
   padding-bottom: 20px;
@@ -350,6 +354,9 @@ iframe{
 /*SOLO TABLET*/
 @media (min-width: 768px) and (max-width: 1024px) {
   /*PORTADA*/
+  .contenedor-enlaces {
+    padding-bottom: 390px;
+  }
   .home-principal {
     height: 300px;
   }
@@ -369,6 +376,11 @@ iframe{
 
 /*SOLO MÓVIL*/
 @media (max-width: 767px) {
+  /*HEADER*/
+  .logo{
+    width: 70%;
+  }
+
   /*PORTADA*/
   .home-principal {
     height: 250px;
