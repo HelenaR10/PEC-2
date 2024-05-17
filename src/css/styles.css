@@ -48,6 +48,7 @@ button {
   border: none;
   border-radius: 5%;
   font-weight: 700;
+  transition: background-color 0.5s ease-in-out;
 }
 button a {
   color: var(--color-enlaces)
@@ -58,7 +59,6 @@ button:hover {
   font-weight: 700;
   cursor: pointer;
 }
-
 button:hover a {
   color: var(--blanco);
 }
@@ -66,6 +66,22 @@ button:hover a {
 /*HEADER*/
 .header {
   padding: 0;
+}
+.botones-modo-noche {
+  align-items: center;
+  display: flex;
+  justify-content: end;
+}
+.boton-header {
+  background-color: transparent;
+  height: 45px;
+}
+.link-nav .active {
+  color: #53ad38;
+  font-weight: bold;
+}
+svg {
+  width: 20%;
 }
 .logo {
   width: 30%;
@@ -85,9 +101,8 @@ button:hover a {
   background-color: var(--color-portada);
 }
 .header-derecha {
-  display: flex;
-  flex-flow: column wrap;
-  flex-direction: row-reverse;
+  display: grid;
+  grid-auto-columns: min-content;
 }
 .header-derecha button {
   width: 30%;
@@ -99,6 +114,9 @@ footer {
   justify-content: space-between;
   background-color: var(--color-secundario);
   padding: 20px;
+}
+.logo-footer {
+  width: 35%;
 }
 .politicas {
   display: flex;
@@ -133,8 +151,12 @@ footer {
   font-size: 18px;
 }
 .img-discos {
+  clip-path: polygon(50% 0%, 65% 31%, 98% 35%, 72% 58%, 79% 91%, 50% 74%, 21% 91%, 28% 57%, 2% 35%, 35% 31%);
   width: 90%;
   border-radius: 4%;
+}
+.img-discos:hover {
+  animation:  bounceIn 2s ease-in-out 0.1s forwards;
 }
 .home-secundario {
   padding: 15px 20px;
@@ -223,7 +245,6 @@ iframe{
 ul {
   padding: 0;
 }
-
 .contenedor-enlaces h1 {
   font-size: 60px;
   padding-bottom: 20px;
@@ -265,6 +286,10 @@ ul {
 .intro img {
   width: 80%;
 }
+picture {
+  display: flex;
+  justify-content: center;
+}
 .img-intro {
   display: flex;
   justify-content: center;
@@ -277,18 +302,31 @@ ul {
 }
 .cronologia {
   display: flex;
-  justify-content: center;
 }
 .tit-cronologia{
   font-size: 40px;
+  margin: 0;
+}
+.img-cronologia {
+  max-width: 100%;
+  border-radius: 2%;
 }
 .momentos-cronologia {
   width: 70%;
   padding-bottom: 40px;
 }
+.contenido-cronologia {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding-bottom: 20px;
+}
 .momento-cronologia p {
  background-color: rgba(255, 255, 255, 0.3);
  border-radius: 2%;
+}
+.momento-cronologia h2 {
+  margin: 0;
 }
 
 /*DARK MODE BOTON*/
@@ -299,17 +337,23 @@ ul {
   --color-body: #2e2b2b;
   --color-portada: #000;
 }
+.modo-claro {
+  --color-principal: #000;
+  --blanco: #fff;
+  --color-nav:#fff;
+  --color-body: #58b83ba2;
+  --color-portada: #fff;
+}
 
 /*MEDIA QUERIES MOVIL Y TABLET*/ 
 @media (max-width: 1024px) {
   /*FOOTER*/
   footer {
     align-items: center;
-    flex-direction: column-reverse;
+    font-size: 15px;
   }
   .politicas {
     flex-flow: column wrap;
-    align-items: center;
     margin: 0 auto;
     padding: 0;
   }
@@ -340,6 +384,16 @@ ul {
   }
   .txt-principal {
     width: 100%;
+  }
+  .noticia .img-noticia {
+    width: 90%;
+  }
+  .noticia-lateral .img-noticia {
+    width: 70%;
+  }
+  .boton-noticia {
+    font-size: 7px;
+    padding: 2px;
   }
 
   /*DETALLE*/
@@ -378,9 +432,12 @@ ul {
 @media (max-width: 767px) {
   /*HEADER*/
   .logo{
-    width: 70%;
+    width: 80%;
   }
-
+  .e-nav {
+    font-size: 14px;
+  }
+  
   /*PORTADA*/
   .home-principal {
     height: 250px;
@@ -398,6 +455,9 @@ ul {
   /*CATEGORIA*/
   .contenido-noticia h2 {
     font-size: 15px;
+  }
+  .txt-principal h1{
+    font-size: 35px;
   }
 
   /*PRESENTACION*/
@@ -420,5 +480,25 @@ ul {
   }
   .momentos-cronologia {
     padding: 0;
+  }
+
+  /*FOOTER*/
+  footer {
+    font-size: 10px;
+  }
+}
+
+/*ANIMACIONES*/
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
   }
 }
