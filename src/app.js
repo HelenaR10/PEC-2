@@ -1,13 +1,31 @@
-const darkModeButton = document.getElementById('temaOscuro');
+
 const body = document.body;
-darkModeButton.addEventListener('click', () => {
-    body.classList.toggle('modo-oscuro');
+
+document.addEventListener("DOMContentLoaded", function() {
+    const darkModeButton = document.getElementById('temaOscuro');
+    const lightModeButton = document.getElementById('temaClaro');
+
+    function darkModeActivate() {
+        body.classList.add('modo-oscuro');
+        body.classList.remove('modo-claro');
+        darkModeButton.classList.add('button-pressed');
+        lightModeButton.classList.remove('button-pressed');
+    }
+
+    function lightModeActivate() {
+        body.classList.add('modo-claro');
+        body.classList.remove('modo-oscuro');
+        lightModeButton.classList.add('button-pressed');
+        darkModeButton.classList.remove('button-pressed');
+    }
+
+    darkModeButton.addEventListener('click', darkModeActivate);
+    lightModeButton.addEventListener('click', lightModeActivate);
+
+    lightModeActivate();
 });
 
-const whiteModeButton = document.getElementById('temaClaro');
-whiteModeButton.addEventListener('click', () => {
-    body.classList.toggle('modo-claro');
-});
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const currentPage = window.location.pathname;

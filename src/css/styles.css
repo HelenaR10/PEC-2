@@ -12,12 +12,17 @@
 }
 * {
   box-sizing: border-box;
-
 }
 html, 
 body {
+  height: 100vh;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-flow: column;
+}
+main {
+  flex: 1;
 }
 a {
   text-decoration: none;
@@ -63,6 +68,46 @@ button:hover a {
   color: var(--blanco);
 }
 
+/*ANIMACIONES*/
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes dash {
+  from {
+      stroke-dashoffset: 400;
+  }
+  to {
+      stroke-dashoffset: 0;
+  }
+}
+
+/*DARK MODE BOTON*/
+.modo-oscuro {
+  --color-principal: #fff;
+  --blanco: #000;
+  --color-nav:#000;
+  --color-body: #2e2b2b;
+  --color-portada: #000;
+}
+.modo-claro {
+  --color-principal: #000;
+  --blanco: #fff;
+  --color-nav:#fff;
+  --color-body: #58b83ba2;
+  --color-portada: #fff;
+}
+
 /*HEADER*/
 .header {
   padding: 0;
@@ -71,14 +116,19 @@ button:hover a {
   align-items: center;
   display: flex;
   justify-content: end;
+  gap: 5px;
 }
 .boton-header {
   background-color: transparent;
   height: 45px;
 }
-.link-nav .active {
-  color: #53ad38;
+.modo-oscuro .boton-header {
+  background-color: #fff;
+}
+.active {
+  color: var(--color-secundario);
   font-weight: bold;
+  border-bottom: 2px solid var(--color-secundario);
 }
 svg {
   width: 20%;
@@ -99,6 +149,10 @@ svg {
 }
 .home-secundario {
   background-color: var(--color-portada);
+  padding: 15px 20px;
+}
+.home-secundario h2 {
+  width: 90%;
 }
 .header-derecha {
   display: grid;
@@ -107,6 +161,10 @@ svg {
 .header-derecha button {
   width: 30%;
 }
+.button-pressed, .modo-oscuro .button-pressed {
+  background-color: var(--color-secundario);
+}
+
 
 /*FOOTER*/
 footer {
@@ -114,15 +172,16 @@ footer {
   justify-content: space-between;
   background-color: var(--color-secundario);
   padding: 20px;
+  align-items: center;
 }
 .logo-footer {
   width: 35%;
 }
-.politicas {
+.enlaces-footer {
   display: flex;
   gap: 15px;
 }
-.politicas a:hover {
+.enlaces-footer a:hover {
   color: var(--blanco);
 }
 
@@ -151,18 +210,15 @@ footer {
   font-size: 18px;
 }
 .img-discos {
-  clip-path: polygon(50% 0%, 65% 31%, 98% 35%, 72% 58%, 79% 91%, 50% 74%, 21% 91%, 28% 57%, 2% 35%, 35% 31%);
-  width: 90%;
+  display: block;
+  width: 100%;
+  height: auto;
   border-radius: 4%;
+  clip-path: polygon(50% 0%, 65% 31%, 98% 35%, 72% 58%, 79% 91%, 50% 74%, 21% 91%, 28% 57%, 2% 35%, 35% 31%);
+  transition: transform 1s ease, opacity 1s ease;
 }
 .img-discos:hover {
-  animation:  bounceIn 2s ease-in-out 0.1s forwards;
-}
-.home-secundario {
-  padding: 15px 20px;
-}
-.home-secundario h2 {
-  width: 90%;
+  animation: bounceIn 2s ease-in-out 0.1s forwards;
 }
 .albumes {
   display: grid;
@@ -194,7 +250,7 @@ footer {
   font-size: 50px;
 }
 .img-noticia {
-  max-width: 100%;
+  width: 100%;
   border-radius: 4%;
 }
 .noticia {
@@ -239,7 +295,26 @@ aside button {
 iframe{
   border-radius: 4%;
 }
-
+.youtube-container {
+  position: relative;
+}
+.youtube-video {
+  display: block;
+}
+.animated-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--color-secundario);
+  stroke-width: 2;
+  pointer-events: none;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: dash 5s linear infinite;
+}
 
 /*ENLACES*/
 ul {
@@ -302,6 +377,9 @@ picture {
 }
 .cronologia {
   display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  width: 70%;
 }
 .tit-cronologia{
   font-size: 40px;
@@ -312,7 +390,7 @@ picture {
   border-radius: 2%;
 }
 .momentos-cronologia {
-  width: 70%;
+  width: 100%;
   padding-bottom: 40px;
 }
 .contenido-cronologia {
@@ -329,21 +407,6 @@ picture {
   margin: 0;
 }
 
-/*DARK MODE BOTON*/
-.modo-oscuro {
-  --color-principal: #fff;
-  --blanco: #000;
-  --color-nav:#000;
-  --color-body: #2e2b2b;
-  --color-portada: #000;
-}
-.modo-claro {
-  --color-principal: #000;
-  --blanco: #fff;
-  --color-nav:#fff;
-  --color-body: #58b83ba2;
-  --color-portada: #fff;
-}
 
 /*MEDIA QUERIES MOVIL Y TABLET*/ 
 @media (max-width: 1024px) {
@@ -352,7 +415,12 @@ picture {
     align-items: center;
     font-size: 15px;
   }
-  .politicas {
+  .nav-footer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .enlaces-footer {
     flex-flow: column wrap;
     margin: 0 auto;
     padding: 0;
@@ -365,9 +433,6 @@ picture {
   .home-principal {
     padding-left: 10px;
   }
-  .home-secundario {
-    padding-left: 65px;
-  }
 
   /*CATEGORIA*/
   aside {
@@ -376,7 +441,6 @@ picture {
   .contenedor-noticias {
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;
     row-gap: 0;
   }
   .noticias {
@@ -385,20 +449,22 @@ picture {
   .txt-principal {
     width: 100%;
   }
-  .noticia .img-noticia {
-    width: 90%;
-  }
-  .noticia-lateral .img-noticia {
-    width: 70%;
-  }
   .boton-noticia {
-    font-size: 7px;
-    padding: 2px;
+    font-size: 20px;
+    padding: 10px;
+  }
+  .boton-noticia-principal {
+    font-size: 20px;
+    padding: 13px;
+    width: 30%;
   }
 
   /*DETALLE*/
   .intro h1 {
     font-size: 40px;
+  }
+  .contenido-cronologia {
+    display: block;
   }
   .tit-cronologia {
     font-size: 30px;
@@ -459,6 +525,13 @@ picture {
   .txt-principal h1{
     font-size: 35px;
   }
+  .boton-noticia {
+    font-size: 10px;
+    padding: 5px;
+  }
+  .boton-noticia-principal {
+    font-size: 12px;
+  }
 
   /*PRESENTACION*/
   .intro h1 {
@@ -485,20 +558,5 @@ picture {
   /*FOOTER*/
   footer {
     font-size: 10px;
-  }
-}
-
-/*ANIMACIONES*/
-@keyframes bounceIn {
-  0% {
-    transform: scale(0.1);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
   }
 }
